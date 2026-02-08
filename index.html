@@ -431,7 +431,7 @@
                 </div>
             </div>
             <div class="hero-image-section">
-                <img src="https://via.placeholder.com/400x400/58a6ff/ffffff?text=Your+Photo" alt="Suvratha Jayaprasad" class="profile-img">
+                <img src="009-cd0ff3794e-MjA-9af81.jpeg" alt="Suvratha Jayaprasad" class="profile-img">
                 <div class="stats-grid">
                     <div class="stat-box">
                         <div class="stat-number">6+</div>
@@ -548,31 +548,34 @@
     <footer>
         <p>&copy; 2026 Suvratha Jayaprasad. Built for open science.</p>
     </footer>
+
     <script>
         function toggleMenu() {
             document.getElementById('navMenu').classList.toggle('active');
         }
+
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navMenu').classList.remove('active');
             });
         });
-        // Contact Form Handler
+
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
             const formMessage = document.getElementById('formMessage');
             const submitBtn = e.target.querySelector('.form-submit');
-            // Disable button and show loading
+            
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
-            // Get form data
+            
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 message: document.getElementById('message').value
             };
+            
             try {
-                // Using Formspree (free service)
                 const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
                     method: 'POST',
                     headers: {
@@ -580,10 +583,24 @@
                     },
                     body: JSON.stringify(formData)
                 });
+                
                 if (response.ok) {
                     formMessage.textContent = 'Message sent successfully! I\'ll get back to you soon.';
                     formMessage.className = 'form-message success';
                     formMessage.style.display = 'block';
                     e.target.reset();
                 } else {
-                    throw new Error('Fail
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                formMessage.textContent = 'Failed to send message. Please email me directly at suvratha@gmail.com';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+</html>
